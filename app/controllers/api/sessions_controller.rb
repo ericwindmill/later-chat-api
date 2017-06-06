@@ -34,23 +34,29 @@ class Api::SessionsController < ApplicationController
 
   skip_before_action :require_login!, only: [:create]
 
-  #create a new session if the user is found by email, but only if the user passes 
+  #create a new session if the user is found by email, but only if the user passes
   # I changed whatever devise method he was using to find_by(email: email). I don't know if that's right.
   def create
-    resource = User.find_by(email: email)
-    return invalid_login_attempt unless resource
-
-    ## I added my own valid password method because the guide uses Devise. Does this seem right?
-    if resource.valid_password?(params[:user][:password])
-      auth_token = resource.generate_auth_token
+    debugger
+    @resource = User.find_by_credentials(params[:user][:username], params[:user][:password])
+    if @resource
+      auth_token = @resource.generate_auth_token
       render json: { auth_token: auth_token }
     else
-      invalid_login_attempt
+      return invalid_login_attempt
     end
 
-    def valid_password?(password) {
-      return false unless (resource.password === password)
-    }
+    # resource = User.find_by(email: email)
+
+    ## I added my own valid password method because the guide uses Devise. Does this seem right?
+    # if resource.valid_password?(params[:username][:password])
+    # else
+    #   invalid_login_attempt
+    # end
+
+    # def valid_password?(password) {
+    #   return false unless (resource.password === password)
+    # }
 
   end
 
@@ -61,12 +67,11 @@ class Api::SessionsController < ApplicationController
     head :ok
   end
 
-  private
 
-    # helper method to render invalid credentials error
-    def invalid_login_attempt
-      render json: { errors: [ { detail:"Error with your login or password" }]}, status: 401
-    end
+  # helper method to render invalid credentials error
+  def invalid_login_attempt
+    render json: { errors: [ { detail:"Error with your login or password" }]}, status: 401
+  end
 
 
 end
