@@ -1,18 +1,19 @@
 class Api::PostsController < ApplicationController
 
   def index
-    #to pass params in a 'GET' request, must pass it in the query string
-    #ex. .../api/posts?type=post&locations[]=Dolores%20Park&locations[]=Cafe
-    @locations = params[:locations]
-    if params[:type] == 'post'
-      @posts = Post.limit(50).where("public = true AND location IN (?)", @locations)
+    # #to pass params in a 'GET' request, must pass it in the query string
+    # #ex. .../api/posts?type=post&locations[]=Dolores%20Park&locations[]=Cafe
+    # @locations = params[:locations]
+    # if params[:type] == 'post'
+    #   @posts = Post.limit(50).where("public = true AND location IN (?)", @locations)
 
-    #for time being and testing purposes, this current controller doesn't have access to 'current_user.id'
-    #so, to receive the notes for a user, send it in the query string like so: /api/posts?type=note&recipient_id=4&locations[]=Dolores%20Park
-    elsif params[:type] == 'note'
-      @posts = Note.joins(:post).includes(:post).where("notes.recipient_id = ? AND posts.location IN (?)", params[:recipient_id], @locations)
-        .map(&:post)
-    end
+    # #for time being and testing purposes, this current controller doesn't have access to 'current_user.id'
+    # #so, to receive the notes for a user, send it in the query string like so: /api/posts?type=note&recipient_id=4&locations[]=Dolores%20Park
+    # elsif params[:type] == 'note'
+    #   @posts = Note.joins(:post).includes(:post).where("notes.recipient_id = ? AND posts.location IN (?)", params[:recipient_id], @locations)
+    #     .map(&:post)
+    # end
+    render json: {'key': 'val'}
   end
 
   def create
