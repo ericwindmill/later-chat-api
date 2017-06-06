@@ -37,11 +37,12 @@ class Api::SessionsController < ApplicationController
   #create a new session if the user is found by email, but only if the user passes
   # I changed whatever devise method he was using to find_by(email: email). I don't know if that's right.
   def create
-    debugger
     @resource = User.find_by_credentials(params[:user][:username], params[:user][:password])
     if @resource
       auth_token = @resource.generate_auth_token
-      render json: { auth_token: auth_token }
+      render :session
+      # render json: { auth_token: auth_token, username: @resource.username }
+      # render json: { auth_token: auth_token }
     else
       return invalid_login_attempt
     end
