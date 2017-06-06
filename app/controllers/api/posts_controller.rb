@@ -13,6 +13,7 @@ class Api::PostsController < ApplicationController
       @posts = Note.joins(:post).includes(:post).where("notes.recipient_id = ? AND posts.location IN (?)", params[:recipient_id], @locations)
         .map(&:post)
     end
+    # render json: {'key': 'val'}
   end
 
   def create
@@ -36,8 +37,8 @@ class Api::PostsController < ApplicationController
 
   end
 
-  def post_params
-    params.require(:post).permit(:body, :location, :image_url, :author_id, :public)
-  end
+  # def post_params
+  #   params.require(:post).permit(:body, :location, :image_url, :author_id, :public)
+  # end
 
 end
