@@ -1,4 +1,4 @@
-json.extract! @user, :id, :username
+json.extract! @user, :id, :username, :auth_token
 
 json.followers do
   @user.followers.each do |follower|
@@ -14,4 +14,4 @@ json.leaders do
       json.extract! leader, :id, :username
     end
   end
-end 
+end
