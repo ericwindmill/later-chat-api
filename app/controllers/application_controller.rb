@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
 
   ### TOKEN BASED AUTH
 
-  before_action :require_login!
+  #before_action :require_login!
   helper_method :person_signed_in?, :current_user
 
   #present is a built in method that checks if an object is nil
@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   end
 
   ## this essentially replaces our logged_in? method.
-  def require_login! 
+  def require_login!
     return true if authenticate_token
     render json: { errors: [ { detail: "Access denied" } ] }, status: 401
   end
