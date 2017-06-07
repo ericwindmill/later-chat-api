@@ -74,5 +74,14 @@ class Api::SessionsController < ApplicationController
     render json: { errors: [ { detail:"Error with your login or password" }]}, status: 401
   end
 
+  def show
+    user = User.find_by(auth_token: params[:auth_token])
+    if user
+      render text: "verified", status: 200
+    else
+      render text: "Token failed verification", status: 422
+    end
+  end
+
 
 end
