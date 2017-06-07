@@ -5,14 +5,12 @@ class Api::PostsController < ApplicationController
     #ex. .../api/posts?type=post&locations[]=Dolores%20Park&locations[]=Cafe
     @locations = params[:locations]
     if params[:type] == 'post'
-      @posts = Post.limit(50).where("public = true AND location IN (?)", @locations)
+      @posts = Post.includes(:author).limit(50).where("public = true AND location IN (?)", @locations)
 
     #for time being and testing purposes, this current controller doesn't have access to 'current_user.id'
     #so, to receive the notes for a user, send it in the query string like so: /api/posts?type=note&recipient_id=4&locations[]=Dolores%20Park
     elsif params[:type] == 'note'
-      @posts = User.find_by(id: params[:recipient_id]).notes.where("location IN (?)", @locations)
-      #@posts = Note.joins(:post).includes(:post).where("notes.recipient_id = ? AND posts.location IN (?)", params[:recipient_id], @locations)
-      #  .map(&:post)
+      @posts = User.find_by(id: params[:recipient_id]).notes.includes(:author).where("location IN (?)", @locations)
     end
   end
 
