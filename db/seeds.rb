@@ -29,7 +29,7 @@ users = User.all
 #create follows
 
 users.each do |user|
-  30.times do
+  50.times do
     leader = users.sample
     while leader.id == user.id
       leader = users.sample
@@ -60,17 +60,21 @@ users.each do |user|
 
     #if post is not public AND randomly, make notes to users followers
 
-    unless post.public && Faker::Boolean.boolean
-      recipients = []
-      rand(user.followers.length).times do
-        recipients.push(user.followers.sample.id)
-      end
-      recipients.each do |recipient|
-        note = Note.new
-        note.post_id = post.id
-        note.recipient_id = recipient
-        note.save
-      end
+  end
+end
+
+
+Post.all.each do |post|
+  unless post.public && Faker::Boolean.boolean
+    recipients = []
+    rand(post.author.followers.length).times do
+      recipients.push(post.author.followers.sample.id)
+    end
+    recipients.uniq.each do |recipient|
+      note = Note.new
+      note.post_id = post.id
+      note.recipient_id = recipient
+      note.save
     end
   end
 end

@@ -1,5 +1,6 @@
 class Note < ApplicationRecord
   validates :recipient_id, :post_id, presence: true
+  validates :recipient_id, uniqueness: { scope: :post_id }
 
   belongs_to :post
 

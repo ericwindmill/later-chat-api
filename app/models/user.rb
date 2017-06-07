@@ -8,7 +8,7 @@ class User < ApplicationRecord
     foreign_key: :author_id,
     class_name: "Post"
 
-  has_many :follows,
+  has_many :leads,
     primary_key: :id,
     foreign_key: :follower_id,
     class_name: "Follow"
@@ -17,7 +17,7 @@ class User < ApplicationRecord
     through: :follows,
     source: :follower
 
-  has_many :leads,
+  has_many :follows,
     primary_key: :id,
     foreign_key: :leader_id,
     class_name: "Follow"
