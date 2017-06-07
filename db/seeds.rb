@@ -58,8 +58,6 @@ users.each do |user|
 
     post.save
 
-    #if post is not public AND randomly, make notes to users followers
-
   end
 end
 
@@ -75,6 +73,7 @@ Post.all.each do |post|
       note.post_id = post.id
       note.recipient_id = recipient
       note.save
+
     end
   end
 end
