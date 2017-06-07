@@ -32,7 +32,7 @@ class Api::SessionsController < ApplicationController
 
   ### TOKEN AUTH TESTS
 
-  skip_before_action :require_login!, only: [:create]
+  skip_before_action :require_login!, only: [:create, :verify_access_token]
 
   #create a new session if the user is found by email, but only if the user passes
   # I changed whatever devise method he was using to find_by(email: email). I don't know if that's right.
@@ -74,8 +74,8 @@ class Api::SessionsController < ApplicationController
     render json: { errors: [ { detail:"Error with your login or password" }]}, status: 401
   end
 
-  def show
-    user = User.find_by(auth_token: params[:auth_token])
+  def verify_access_token
+    user = User.find_by(auth_token: params[:session][:access_token])
     if user
       render text: "verified", status: 200
     else
