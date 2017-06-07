@@ -32,7 +32,7 @@ class Api::SessionsController < ApplicationController
 
   ### TOKEN AUTH TESTS
 
-  skip_before_action :require_login!, only: [:create, :verify_access_token]
+  skip_before_action :require_login!, only: [:create, :verify_access_token], raise: false
 
   #create a new session if the user is found by email, but only if the user passes
   # I changed whatever devise method he was using to find_by(email: email). I don't know if that's right.
