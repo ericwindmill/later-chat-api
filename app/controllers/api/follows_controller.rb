@@ -1,9 +1,8 @@
 class Api::FollowsController < ApplicationController
 
   def create
+    debugger
     @follow = Follow.new(follow_params)
-    #will we be able to receive current_user the same way we used to be able to?
-    @follow.follower_id = current_user.id
     if @follow.save
       render json: @follow.leader
     else
@@ -18,7 +17,7 @@ class Api::FollowsController < ApplicationController
   end
 
   def follow_params
-    params.require(:follow).permit(:leader_id)
+    params.require(:follow).permit(:leader_id, :follower_id)
   end
 
 end
