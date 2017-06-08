@@ -1,10 +1,9 @@
 class Api::FollowsController < ApplicationController
 
   def create
-    debugger
     @follow = Follow.new(follow_params)
     if @follow.save
-      render json: @follow.leader
+      render json: @follow.leader_id
     else
       render json: @follow.errors.full_messages, status: 422
     end
