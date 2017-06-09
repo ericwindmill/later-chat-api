@@ -68,6 +68,15 @@ class Api::SessionsController < ApplicationController
     head :ok
   end
 
+  def show
+    @user = User.find_by_auth_token(params[:auth_token])
+    if @user
+      render :show
+    else
+      render text: "User not found"
+    end
+  end
+
 
   # helper method to render invalid credentials error
   def invalid_login_attempt
