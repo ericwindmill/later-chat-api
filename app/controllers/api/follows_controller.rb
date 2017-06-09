@@ -5,7 +5,9 @@ class Api::FollowsController < ApplicationController
     if @follow.save
       # returns the id of the leader to be added to the current
       # user's leaders array
-      render json: @follow.leader
+      @leader = @follow.leader
+      # render json: @follow.leader
+      render :follow
     else
       render json: @follow.errors.full_messages, status: 422
     end
