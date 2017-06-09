@@ -1,7 +1,7 @@
 class Api::FollowsController < ApplicationController
 
   def create
-    @follow = Follow.new(follow_params)
+    @follow = Follow.new(follower_id: params[:follower_id], leader_id: params[:leader_id])
     if @follow.save
       # returns the id of the leader to be added to the current
       # user's leaders array
