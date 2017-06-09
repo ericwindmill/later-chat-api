@@ -12,7 +12,7 @@ class Api::FollowsController < ApplicationController
   def destroy
     @follow = Follow.find_by(follow_params)
     @follow.destroy
-    render json: @follow
+    render json: @follow.leader_id
   end
 
   def follow_params
