@@ -1,4 +1,5 @@
-json.extract! @user, :id, :username
+json.id @user.id
+json.username @user.username
 
 json.followers do
   @user.followers.each do |follower|
