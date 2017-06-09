@@ -45,7 +45,7 @@ end
 
 #create posts
 
-locations = ["Dolores Park", "Cafe", "Golden Gate Park", "McDonalds", "Ferry Building"]
+locations = ["Mission Dolores Park", "Parker Guest House", "Bi-Rite Creamery", "Mission High School", "Ferry Building"]
 
 users.each do |user|
   50.times do
