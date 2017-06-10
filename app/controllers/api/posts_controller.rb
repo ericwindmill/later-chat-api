@@ -9,12 +9,16 @@ class Api::PostsController < ApplicationController
 
     #for time being and testing purposes, this current controller doesn't have access to 'current_user.id'
     #so, to receive the notes for a user, send it in the query string like so: /api/posts?type=note&recipient_id=4&locations[]=Dolores%20Park
-    elsif params[:type] == 'note'
-      @posts = User.find_by(id: params[:recipient_id]).notes.includes(:author).where("location IN (?)", @locations)
+  elsif params[:type] == 'note'
+      # Finding notes for currentUser by the notes recipients ID using through association. (And based on location)
+      @user = User.find_by(id: params[:recipient_id])
+      @posts = user.notes.includes(:author).where("location IN (?)", @locations)
+      
     end
   end
 
   def create
+    #Note is a joins table so we always need a post.
     @post = Post.new(post_params)
     if @post.save
       if params[:post][:recipients]
@@ -34,3 +38,7 @@ class Api::PostsController < ApplicationController
   end
 
 end
+
+
+
+User.joins('INNER JOIN notes ON users.id = notes.recipient_id INNER JOIN posts ON notes.post_id = posts.id').where(id: 112)
