@@ -11,9 +11,9 @@ class Api::PostsController < ApplicationController
     #so, to receive the notes for a user, send it in the query string like so: /api/posts?type=note&recipient_id=4&locations[]=Dolores%20Park
   elsif params[:type] == 'note'
       # Finding notes for currentUser by the notes recipients ID using through association. (And based on location)
-      @user = User.find_by(id: params[:recipient_id])
-      @posts = user.notes.includes(:author).where("location IN (?)", @locations)
-      
+      @user = User.find(params[:recipient_id])
+      @posts = @user.notes.includes(:author).where("location IN (?)", @locations)
+      render 'api/notes/index'
     end
   end
 
