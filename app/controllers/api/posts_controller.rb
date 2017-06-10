@@ -15,17 +15,11 @@ class Api::PostsController < ApplicationController
   end
 
   def create
-
     @post = Post.new(post_params)
-
     if @post.save
-      #because arrays can't be sent, as far as I know, through POST requests,
-      #the recipients need to be sent like so: post[recipients] = 1,2,3,4
-      #where the controller parses the string recieved, splits and maps to int where notes are made
-      if  params[:post][:recipients]
-        recipients = params[:post][:recipients].split(',').map(&:to_i)
-        recipients.each do |recipient|
-          Note.create(post_id: @post.id, recipient_id: recipient.to_int)
+      if params[:post][:recipients]
+        params[:post][:recipients].each do |recipient|
+          Note.create(post_id: @post.id, recipient_id: recipient.to_i)
         end
       end
       render 'api/posts/show'
