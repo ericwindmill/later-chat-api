@@ -12,7 +12,7 @@ class Api::PostsController < ApplicationController
   elsif params[:type] == 'note'
       # Finding notes for currentUser by the notes recipients ID using through association. (And based on location)
       @user = User.find_by(id: params[:recipient_id])
-      @posts = user.notes.includes(:author).where("location IN (?)", @locations)
+      @posts = @user.notes.includes(:author).where("location IN (?)", @locations)
       
     end
   end
