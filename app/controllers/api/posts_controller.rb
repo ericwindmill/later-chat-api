@@ -37,6 +37,7 @@ class Api::PostsController < ApplicationController
     @note = Note.find(params[:note_id])
     if @note
       @note.update(read_status: true)
+      render text: 'updated', status: 205
     else
       render json: @note.errors.full_messages, status: 405
     end
