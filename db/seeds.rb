@@ -56,7 +56,7 @@ users.each do |user|
       post.body += "#{Faker::ChuckNorris.fact} "
     end
     post.location = locations.sample
-    post.image_url = 'https://lorempixel.com/200/200'
+    post.image_url = 'https://loremflickr.com/640/480/dog'
     post.public = Faker::Boolean.boolean
 
     post.save
