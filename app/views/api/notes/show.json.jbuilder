@@ -1,4 +1,2 @@
-json.extract! @post, :id, :body, :location, :image_url, :public
-json.author do
-  json.extract! @post.author, :id, :username
-end
+json.extract! @note, :post_id
+json.location @note.post.location
