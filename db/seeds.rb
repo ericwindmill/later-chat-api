@@ -17,7 +17,7 @@ Follow.destroy_all
 #create users
 guest = User.new({username: 'guest', password: 'password'})
 
-5.times do
+10.times do
   user = User.new
   user.username = Faker::Internet.user_name
   user.password = 'password'
@@ -29,7 +29,7 @@ users = User.all
 #create follows
 
 users.each do |user|
-  5.times do
+  10.times do
     leader = users.sample
     while leader.id == user.id
       leader = users.sample
@@ -45,19 +45,21 @@ end
 
 #create posts
 
-locations = ["Mission Dolores Park", "Parker Guest House", "Bi-Rite Creamery", "Mission High School", "Ferry Building"]
+locations = ["Mission Dolores Park", "Parker Guest House", "Bi-Rite Creamery", "Mission High School"]
 
 users.each do |user|
-  3.times do
+  15.times do
     post = Post.new
     post.author_id = user.id
-    post.body = Faker::Hipster.sentence
+    post.body = ""
+    ((rand*4)+1).round.times do
+      post.body += "#{Faker::ChuckNorris.fact} "
+    end
     post.location = locations.sample
-    post.image_url = Faker::LoremPixel.image
+    post.image_url = 'https://lorempixel.com/200/200'
     post.public = Faker::Boolean.boolean
 
     post.save
-
   end
 end
 
@@ -73,7 +75,6 @@ Post.all.each do |post|
       note.post_id = post.id
       note.recipient_id = recipient
       note.save
-
     end
   end
 end

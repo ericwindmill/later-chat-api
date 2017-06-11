@@ -7,7 +7,6 @@ class Api::PostsController < ApplicationController
     if params[:type] == 'post'
       @posts = Post.includes(:author).limit(50).where("public = true AND location IN (?)", @locations)
 
-    #for time being and testing purposes, this current controller doesn't have access to 'current_user.id'
     #so, to receive the notes for a user, send it in the query string like so: /api/posts?type=note&recipient_id=4&locations[]=Dolores%20Park
   elsif params[:type] == 'note'
       # Finding notes for currentUser by the notes recipients ID using through association. (And based on location)
@@ -48,7 +47,3 @@ class Api::PostsController < ApplicationController
   end
 
 end
-
-
-
-User.joins('INNER JOIN notes ON users.id = notes.recipient_id INNER JOIN posts ON notes.post_id = posts.id').where(id: 112)
