@@ -33,6 +33,16 @@ class Api::PostsController < ApplicationController
 
   end
 
+  def update
+    @note = Note.find(params[:note_id])
+    if @note
+      @note.update(read_status: true)
+      render 'api/notes/show'
+    else
+      render json: @note.errors.full_messages, status: 405
+    end
+  end
+
   def post_params
     params.require(:post).permit(:body, :location, :image_url, :author_id, :public)
   end
