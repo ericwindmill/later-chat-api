@@ -13,9 +13,16 @@ Post.destroy_all
 Note.destroy_all
 Follow.destroy_all
 
+# Coit Tower, 37.802374,-122.4080011
+# Trick Dog, 37.7592213,-122.4133992
+# Ferry Building Marketplace, 37.795274,-122.3956043
+# Golden Gate Bridge, 37.8199286,-122.4804384
+# Sutro Baths, 37.7804369,-122.5158768
+# Alcatraz Island, 37.8269775,-122.4251388
+# Mission Dolores Park, 37.7596168,-122.4290871
 
 #create users
-guest = User.new({username: 'guest', password: 'password'})
+guest = User.create({username: 'Guest', password: 'password'})
 
 10.times do
   user = User.new
@@ -45,14 +52,25 @@ end
 
 #create posts
 
-locations = ["Mission Dolores Park", "Parker Guest House", "Bi-Rite Creamery", "Mission High School"]
+# Coit Tower, 37.802374,-122.4080011
+# Trick Dog, 37.7592213,-122.4133992
+# Ferry Building Marketplace, 37.795274,-122.3956043
+# Golden Gate Bridge, 37.8199286,-122.4804384
+# Sutro Baths, 37.7804369,-122.5158768
+# Alcatraz Island, 37.8269775,-122.4251388
+# Mission Dolores Park, 37.7596168,-122.4290871
+
+locations = [
+  "Mission Dolores Park", "Coit Tower", "Trick Dog", "Alcatraz Island",
+  "Ferry Building Marketplace", "Golden Gate Bridge", "Sutro Baths"
+]
 
 users.each do |user|
   15.times do
     post = Post.new
     post.author_id = user.id
     post.body = ""
-    ((rand*4)+1).round.times do
+    ((rand*3)+1).round.times do
       post.body += "#{Faker::ChuckNorris.fact} "
     end
     post.location = locations.sample
