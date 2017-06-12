@@ -58,6 +58,7 @@ end
 # Golden Gate Bridge, 37.8199286,-122.4804384
 # Sutro Baths, 37.7804369,-122.5158768
 # Alcatraz Island, 37.8269775,-122.4251388
+# Mission Dolores Park, 37.7596168,-122.4290871
 
 locations = [
   "Mission Dolores Park", "Coit Tower", "Trick Dog", "Alcatraz Island",
