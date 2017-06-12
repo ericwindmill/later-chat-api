@@ -22,7 +22,7 @@ Follow.destroy_all
 # Mission Dolores Park, 37.7596168,-122.4290871
 
 #create users
-guest = User.new({username: 'guest', password: 'password'})
+guest = User.create({username: 'Guest', password: 'password'})
 
 10.times do
   user = User.new
