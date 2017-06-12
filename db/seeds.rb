@@ -60,7 +60,7 @@ end
 # Alcatraz Island, 37.8269775,-122.4251388
 # Mission Dolores Park, 37.7596168,-122.4290871
 
-locations = [
+LOCATIONS = [
   "Mission Dolores Park", "Coit Tower", "Trick Dog", "Alcatraz Island",
   "Ferry Building Marketplace", "Golden Gate Bridge", "Sutro Baths"
 ]
@@ -69,9 +69,9 @@ users.each do |user|
   15.times do
     post = Post.new
     post.author_id = user.id
-    post.body = ""
-    ((rand*3)+1).round.times do
-      post.body += "#{Faker::ChuckNorris.fact} "
+    post.body = ''
+    ((rand * 3) + 1).round.times do
+      post.body += 'The quick brown fox jumps over the lazy dog. '
     end
     post.location = locations.sample
     post.image_url = 'https://loremflickr.com/640/480/dog'
