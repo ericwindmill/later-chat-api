@@ -74,7 +74,7 @@ users.each do |user|
       post.body += 'The quick brown fox jumps over the lazy dog. '
     end
     post.location = locations.sample
-    post.image_url = 'https://loremflickr.com/640/480/dog'
+    post.image_url = 'https://loremflickr.com/640/480/landscape'
     post.public = Faker::Boolean.boolean
 
     post.save
